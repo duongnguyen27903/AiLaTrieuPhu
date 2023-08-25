@@ -19,7 +19,7 @@ namespace Sence1
     }
     public class GameManager : MonoBehaviour
     {
-        [ SerializeField] private TextMeshProUGUI question;
+        [SerializeField] private TextMeshProUGUI question;
         [SerializeField] private TextMeshProUGUI answer1;
         [SerializeField] private TextMeshProUGUI answer2;
         [SerializeField] private TextMeshProUGUI answer3;
