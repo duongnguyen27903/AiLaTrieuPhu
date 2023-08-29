@@ -11,33 +11,42 @@ namespace Sence1
     public class QuestionData
     {
         public string question;
-        public string answer1;
-        public string answer2;
-        public string answer3;
-        public string answer4;
+        public string answerA;
+        public string answerB;
+        public string answerC;
+        public string answerD;
         public string correctAnswer;
+    }
+
+    public enum GameState
+    {
+        Home,
+        GamePlay,
+        GameOver
     }
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI question;
-        [SerializeField] private TextMeshProUGUI answer1;
-        [SerializeField] private TextMeshProUGUI answer2;
-        [SerializeField] private TextMeshProUGUI answer3;
-        [SerializeField] private TextMeshProUGUI answer4;
-        [SerializeField] private Image img_answer1;
-        [SerializeField] private Image img_answer2;
-        [SerializeField] private Image img_answer3;
-        [SerializeField] private Image img_answer4;
-        [SerializeField] private QuestionData question_data;
-      
+        [SerializeField] private TextMeshProUGUI answerA;
+        [SerializeField] private TextMeshProUGUI answerB;
+        [SerializeField] private TextMeshProUGUI answerC;
+        [SerializeField] private TextMeshProUGUI answerD;
+        [SerializeField] private Image img_answerA;
+        [SerializeField] private Image img_answerB;
+        [SerializeField] private Image img_answerC;
+        [SerializeField] private Image img_answerD;
+
+        [SerializeField] private GameObject home_panel, game_play_panel, game_over_panel;
+
+        [SerializeField] private QuestionData[] question_data;
+
+        private GameState game_state;
+        private int question_index;
+        private int live;
         // Start is called before the first frame update
         void Start()
         {
-            question.text = question_data.question;
-            answer1.text = "A: " + question_data.answer1;
-            answer2.text = "B: " + question_data.answer2;
-            answer3.text = "C: " + question_data.answer3;
-            answer4.text = "D: " + question_data.answer4;
+            Set_game_state(GameState.Home);
         }
 
         // Update is called once per frame
@@ -49,7 +58,7 @@ namespace Sence1
         public void OnPress( string select_answer)
         {
             bool traloiDung = false;
-            if( question_data.correctAnswer == select_answer)
+            if(question_data[question_index].correctAnswer == select_answer)
             {
                 traloiDung = true;
                 Debug.Log("Ban da tra loi chinh xac");
@@ -57,26 +66,80 @@ namespace Sence1
             else
             {
                 traloiDung = false;
+                live--;
                 Debug.Log("Ban da tra loi sai");
+            }
+
+            if( live == 0)
+            {
+                Set_game_state(GameState.GameOver);
             }
 
             switch ( select_answer ) 
             {
                 case "a":
-                    img_answer1.color = traloiDung ? Color.green : Color.red;
+                    img_answerA.color = traloiDung ? Color.green : Color.red;
                     break;
                 case "b":
-                    img_answer2.color = traloiDung ? Color.green: Color.red;
+                    img_answerB.color = traloiDung ? Color.green: Color.red;
                     break;
                 case "c":
-                    img_answer3.color = traloiDung ? Color.green:Color.red;
+                    img_answerC.color = traloiDung ? Color.green:Color.red;
                     break;
                 case "d":
-                    img_answer4.color = traloiDung ? Color.green : Color.red;
+                    img_answerD.color = traloiDung ? Color.green : Color.red;
                     break;
 
             }
+            if(traloiDung)
+            {
+                if( question_index>=question_data.Length-1)
+                {
+                    Debug.Log("Xin chuc mung, ban da hoan thanh tat ca cac cau hoi");
+                    Set_game_state(GameState.GameOver); 
+                    return;
+                }
+                question_index++;
+                InitQuestion(question_index);
+            }
+        }
+
+        private void InitQuestion( int index)
+        {
+            if( index>=question_data.Length || index<0)
+            {
+                return;
+            }
+            question.text = question_data[index].question;
+            answerA.text = "A: " + question_data[index].answerA;
+            answerB.text = "B: " + question_data[index].answerB;
+            answerC.text = "C: " + question_data[index].answerC;
+            answerD.text = "D: " + question_data[index].answerD;
+            img_answerA.color = Color.white;
+            img_answerB.color = Color.white;
+            img_answerC.color = Color.white;
+            img_answerD.color = Color.white;
+        }
+
+        public void Set_game_state( GameState state)
+        {
+            game_state = state;
+            home_panel.SetActive(game_state == GameState.Home);
+            game_play_panel.SetActive(game_state == GameState.GamePlay);
+            game_over_panel.SetActive( game_state == GameState.GameOver);
+        }
+
+        public void BtnPlay_Pressed ()
+        {
+            Set_game_state(GameState.GamePlay);
+            live = 3;
+            question_index = 0;
+            InitQuestion(question_index);
+        }
+
+        public void BtnHome_Presses()
+        {
+            Set_game_state(GameState.Home);
         }
     }
-
 }
