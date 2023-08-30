@@ -47,12 +47,36 @@ namespace Sence1
         void Start()
         {
             Set_game_state(GameState.Home);
+            
         }
 
         // Update is called once per frame
         void Update()
         {
 
+        }
+
+        IEnumerator ExampleCoroutine(bool traloiDung)
+        {
+            //Print the time of when the function is first called.
+            Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+            //yield on a new YieldInstruction that waits for 5 seconds.
+            yield return new WaitForSecondsRealtime(5);
+            img_answerA.color = Color.white;
+            if (traloiDung)
+            {
+                if (question_index >= question_data.Length - 1)
+                {
+                    Debug.Log("Xin chuc mung, ban da hoan thanh tat ca cac cau hoi");
+                    Set_game_state(GameState.GameOver);
+                }
+                question_index++;
+                InitQuestion(question_index);
+            }
+
+            //After we have waited 5 seconds print the time again.
+            Debug.Log("Finished Coroutine at timestamp : " + Time.time);
         }
 
         public void OnPress( string select_answer)
@@ -79,28 +103,20 @@ namespace Sence1
             {
                 case "a":
                     img_answerA.color = traloiDung ? Color.green : Color.red;
+                    StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
                 case "b":
                     img_answerB.color = traloiDung ? Color.green: Color.red;
+                    StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
                 case "c":
                     img_answerC.color = traloiDung ? Color.green:Color.red;
+                    StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
                 case "d":
                     img_answerD.color = traloiDung ? Color.green : Color.red;
+                    StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
-
-            }
-            if(traloiDung)
-            {
-                if( question_index>=question_data.Length-1)
-                {
-                    Debug.Log("Xin chuc mung, ban da hoan thanh tat ca cac cau hoi");
-                    Set_game_state(GameState.GameOver); 
-                    return;
-                }
-                question_index++;
-                InitQuestion(question_index);
             }
         }
 
