@@ -557,38 +557,6 @@ MonoBehaviour:
   home_panel: {fileID: 506281377}
   game_play_panel: {fileID: 600947555}
   game_over_panel: {fileID: 15756637}
-  question_data:
-  - question: "t\u1ED1c \u0111\u1ED9 c\u1EE7a \u0111\u1EA1n s\xFAng tr\u01B0\u1EDDng
-      l\xE0 bao nhi\xEAu?"
-    answerA: 200m/s
-    answerB: 500m/s
-    answerC: 1000m/s
-    answerD: 2000m/s
-    correctAnswer: c
-  - question: "ai m\u1EA1nh nh\u1EA5t?"
-    answerA: Mike Tyson
-    answerB: Mohamad Ali
-    answerC: Duong
-    answerD: Mayweather
-    correctAnswer: c
-  - question: "con cua c\xF3 m\u1EA5y  ch\xE2n?"
-    answerA: 4
-    answerB: 10
-    answerC: 8
-    answerD: 6
-    correctAnswer: b
-  - question: "kim t\u1EF1 th\xE1p giza n\u1EB1m \u1EDF \u0111\xE2u?"
-    answerA: "Ai C\u1EADp"
-    answerB: "Hoa K\u1EF3"
-    answerC: Anh
-    answerD: "\u1EA2 R\u1EADp"
-    correctAnswer: a
-  - question: "r\xF9a h\xF4 h\u1EA5p b\u1EB1ng g\xEC?"
-    answerA: Mang
-    answerB: "Th\u1EADn"
-    answerC: Da
-    answerD: "Ph\u1ED5i"
-    correctAnswer: d
 --- !u!1 &506281377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +974,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: d
+          m_StringArgument: D
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &738099053
@@ -1895,7 +1863,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: b
+          m_StringArgument: B
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1626494898
@@ -2164,7 +2132,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: c
+          m_StringArgument: C
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1712303100
@@ -2365,7 +2333,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: a
+          m_StringArgument: A
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1886907941
