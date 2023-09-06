@@ -1,4 +1,4 @@
-﻿using System;
+﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,13 +8,16 @@ using UnityEngine.UI;
 
 namespace Sence1
 {
-    //[Serializable]
+    [System.Serializable]// thành phần quan trọng, dùng để đánh dấu một thành phần có thể tuần tự hóa
+    //một thành phần được đánh dấu tuần tự hóa có nhiều tác dụng khác nhau
+    //dùng để chuyển đổi cấu trúc dữ liệu chạy được trong chương trình thành các cấu trúc khác có thể lưu trữ hoặc gửi qua mạng hoặc ngược lại
+
     public class QuestionData
     {
-        public QuestionData(string gen_question, 
-            string gen_answerA, 
-            string gen_answerB, 
-            string gen_answerC, 
+        public QuestionData(string gen_question,
+            string gen_answerA,
+            string gen_answerB,
+            string gen_answerC,
             string gen_answerD,
             string gen_correctAnswer
         )
@@ -55,98 +58,104 @@ namespace Sence1
         [SerializeField] private GameObject home_panel, game_play_panel, game_over_panel;
 
         //[SerializeField]
-        private QuestionData[] question_data = {
-            new QuestionData(
-            "Thủ đô của Nhật Bản là gì?",
-            "A. Tokyo",
-            "B. Bắc Kinh",
-            "C. Seoul",
-            "D. Bangkok",
-            "A"
-        ),
-            new QuestionData(
-            "Thực vật phát ra khí gì trong quá trình quang hợp?",
-            "A. Oxy",
-            "B. Carbon Dioxide",
-            "C. Nitơ",
-            "D. Hydrogen",
-            "A"
-        ),
-            new QuestionData(
-            "Hành tinh nào được gọi là 'Hành tinh Đỏ'?",
-            "A. Sao Thổ",
-            "B. Sao Hoả",
-            "C. Sao Kim",
-            "D. Sao Mộc",
-            "B"
-        ),
-            new QuestionData(
-            "Ngôn ngữ nào được cho là ngôn ngữ của máy tính?",
-            "A. Tiếng Anh",
-            "B. Tiếng Máy",
-            "C. Tiếng Lập Trình",
-            "D. Tiếng Máy Số",
-            "D"
-        ),
-            new QuestionData(
-            "Ai là tác giả của tác phẩm 'Sự kiện tại làng'?",
-            "A. Nguyễn Du",
-            "B. Nam Cao",
-            "C. Hồ Chí Minh",
-            "D. Ngô Tất Tố",
-            "B"
-        ),
-            new QuestionData(
-            "Kích thước nào sau đây là lớn nhất?",
-            "A. 1 KB",
-            "B. 1 MB",
-            "C. 1 GB",
-            "D. 1 TB",
-            "D"
-        ),
-            new QuestionData(
-            "Ngày nào trong năm được kỷ niệm là Ngày Quốc khánh Việt Nam?",
-            "A. 1/5",
-            "B. 2/9",
-            "C. 30/4",
-            "D. 20/11",
-            "B"
-        ),
-            new QuestionData(
-            "Cụm từ 'Tự do - Bình đẳng - Sáng tạo' thuộc tên gọi nước nào?",
-            "A. Hoa Kỳ",
-            "B. Anh",
-            "C. Pháp",
-            "D. Đức",
-            "A"
-        ),
-            new QuestionData(
-            "Ngôn ngữ lập trình nào phổ biến dùng để phát triển ứng dụng di động?",
-            "A. Java",
-            "B. C++",
-            "C. Python",
-            "D. Swift",
-            "D"
-        ),
-            new QuestionData(
-            "Thành phố nào được gọi là 'Thành phố cảng Hòn Ngọc'?",
-            "A. Vũng Tàu",
-            "B. Nha Trang",
-            "C. Đà Nẵng",
-            "D. Phú Quốc",
-            "D"
-        )
-    };
+        //    private QuestionData[] question_data = {
+        //        new QuestionData(
+        //        "Thủ đô của Nhật Bản là gì?",
+        //        "A. Tokyo",
+        //        "B. Bắc Kinh",
+        //        "C. Seoul",
+        //        "D. Bangkok",
+        //        "A"
+        //    ),
+        //        new QuestionData(
+        //        "Thực vật phát ra khí gì trong quá trình quang hợp?",
+        //        "A. Oxy",
+        //        "B. Carbon Dioxide",
+        //        "C. Nitơ",
+        //        "D. Hydrogen",
+        //        "A"
+        //    ),
+        //        new QuestionData(
+        //        "Hành tinh nào được gọi là 'Hành tinh Đỏ'?",
+        //        "A. Sao Thổ",
+        //        "B. Sao Hoả",
+        //        "C. Sao Kim",
+        //        "D. Sao Mộc",
+        //        "B"
+        //    ),
+        //        new QuestionData(
+        //        "Ngôn ngữ nào được cho là ngôn ngữ của máy tính?",
+        //        "A. Tiếng Anh",
+        //        "B. Tiếng Máy",
+        //        "C. Tiếng Lập Trình",
+        //        "D. Tiếng Máy Số",
+        //        "D"
+        //    ),
+        //        new QuestionData(
+        //        "Ai là tác giả của tác phẩm 'Sự kiện tại làng'?",
+        //        "A. Nguyễn Du",
+        //        "B. Nam Cao",
+        //        "C. Hồ Chí Minh",
+        //        "D. Ngô Tất Tố",
+        //        "B"
+        //    ),
+        //        new QuestionData(
+        //        "Kích thước nào sau đây là lớn nhất?",
+        //        "A. 1 KB",
+        //        "B. 1 MB",
+        //        "C. 1 GB",
+        //        "D. 1 TB",
+        //        "D"
+        //    ),
+        //        new QuestionData(
+        //        "Ngày nào trong năm được kỷ niệm là Ngày Quốc khánh Việt Nam?",
+        //        "A. 1/5",
+        //        "B. 2/9",
+        //        "C. 30/4",
+        //        "D. 20/11",
+        //        "B"
+        //    ),
+        //        new QuestionData(
+        //        "Cụm từ 'Tự do - Bình đẳng - Sáng tạo' thuộc tên gọi nước nào?",
+        //        "A. Hoa Kỳ",
+        //        "B. Anh",
+        //        "C. Pháp",
+        //        "D. Đức",
+        //        "A"
+        //    ),
+        //        new QuestionData(
+        //        "Ngôn ngữ lập trình nào phổ biến dùng để phát triển ứng dụng di động?",
+        //        "A. Java",
+        //        "B. C++",
+        //        "C. Python",
+        //        "D. Swift",
+        //        "D"
+        //    ),
+        //        new QuestionData(
+        //        "Thành phố nào được gọi là 'Thành phố cảng Hòn Ngọc'?",
+        //        "A. Vũng Tàu",
+        //        "B. Nha Trang",
+        //        "C. Đà Nẵng",
+        //        "D. Phú Quốc",
+        //        "D"
+        //    )
+        //};
+        List<QuestionData> question_data = new List<QuestionData> { };
 
+        [System.Serializable]
+        public class Question_List_Raw
+        {
+            public List<QuestionData> data;
+        }
+        
         private GameState game_state;
         private int question_index;
         private int live;
         // Start is called before the first frame update
         void Start()
         {
-            Set_game_state(GameState.Home);
-            StartCoroutine(GetQuestions("http://localhost:3124/getAll"));
-
+            
+            StartCoroutine(GetQuestions("http://localhost:3000/getAll"));
         }
 
         // Update is called once per frame
@@ -161,9 +170,10 @@ namespace Sence1
             {
                 // Request and wait for the desired page.
                 yield return webRequest.SendWebRequest();
-                
+
                 string[] pages = uri.Split('/');
                 int page = pages.Length - 1;
+
 
                 switch (webRequest.result)
                 {
@@ -175,8 +185,43 @@ namespace Sence1
                         Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
                         break;
                     case UnityWebRequest.Result.Success:
-                        Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                        //const QuestionData[] question_data = {webRequest.downloadHandler.text}
+
+                        //List<QuestionData> data = new List<QuestionData> {
+                        //    new QuestionData(
+                        //        "Thành phố nào được gọi là 'Thành phố cảng Hòn Ngọc'?",
+                        //        "A. Vũng Tàu",
+                        //        "B. Nha Trang",
+                        //        "C. Đà Nẵng",
+                        //        "D. Phú Quốc",
+                        //        "D"
+                        //    ),
+                        //    new QuestionData(
+                        //        "Ngôn ngữ lập trình nào phổ biến dùng để phát triển ứng dụng di động?",
+                        //        "A. Java",
+                        //        "B. C++",
+                        //        "C. Python",
+                        //        "D. Swift",
+                        //        "D"
+                        //    )
+                        //};
+
+                        //Question_List_Raw raw = new Question_List_Raw();
+                        //raw.data = data;
+                        //Debug.Log( raw.data.Count);
+
+                        //var test_json = JsonUtility.ToJson(test_data);
+                        ////Debug.Log(test_json);
+                        //var test = JsonUtility.FromJson<QuestionData>(test_json);
+                        //Debug.Log(JsonUtility.ToJson(test));
+                        
+                        var raw_data = webRequest.downloadHandler.text;
+                        var data = JsonUtility.FromJson<Question_List_Raw>(raw_data);
+                        foreach (var item in data.data)
+                        {
+                            question_data.Add(item);
+                        }
+                        Debug.Log(question_data.ToString());
+                        Set_game_state(GameState.Home);
                         break;
                 }
             }
@@ -189,7 +234,7 @@ namespace Sence1
             img_answerA.color = Color.white;
             if (traloiDung)
             {
-                if (question_index >= question_data.Length - 1)
+                if (question_index >= question_data.Count - 1)
                 {
                     Debug.Log("Xin chuc mung, ban da hoan thanh tat ca cac cau hoi");
                     Set_game_state(GameState.GameOver);
@@ -199,10 +244,10 @@ namespace Sence1
             }
         }
 
-        public void OnPress( string select_answer)
+        public void OnPress(string select_answer)
         {
             bool traloiDung = false;
-            if(question_data[question_index].correctAnswer == select_answer)
+            if (question_data[question_index].correctAnswer == select_answer)
             {
                 traloiDung = true;
                 Debug.Log("Ban da tra loi chinh xac");
@@ -214,23 +259,23 @@ namespace Sence1
                 Debug.Log("Ban da tra loi sai");
             }
 
-            if( live == 0)
+            if (live == 0)
             {
                 Set_game_state(GameState.GameOver);
             }
 
-            switch ( select_answer ) 
+            switch (select_answer)
             {
                 case "A":
                     img_answerA.color = traloiDung ? Color.green : Color.red;
                     StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
                 case "B":
-                    img_answerB.color = traloiDung ? Color.green: Color.red;
+                    img_answerB.color = traloiDung ? Color.green : Color.red;
                     StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
                 case "C":
-                    img_answerC.color = traloiDung ? Color.green:Color.red;
+                    img_answerC.color = traloiDung ? Color.green : Color.red;
                     StartCoroutine(ExampleCoroutine(traloiDung));
                     break;
                 case "D":
@@ -240,9 +285,9 @@ namespace Sence1
             }
         }
 
-        private void InitQuestion( int index)
+        private void InitQuestion(int index)
         {
-            if( index>=question_data.Length || index<0)
+            if (index >= question_data.Count || index < 0)
             {
                 return;
             }
@@ -257,15 +302,15 @@ namespace Sence1
             img_answerD.color = Color.white;
         }
 
-        public void Set_game_state( GameState state)
+        public void Set_game_state(GameState state)
         {
             game_state = state;
             home_panel.SetActive(game_state == GameState.Home);
             game_play_panel.SetActive(game_state == GameState.GamePlay);
-            game_over_panel.SetActive( game_state == GameState.GameOver);
+            game_over_panel.SetActive(game_state == GameState.GameOver);
         }
 
-        public void BtnPlay_Pressed ()
+        public void BtnPlay_Pressed()
         {
             Set_game_state(GameState.GamePlay);
             live = 20;
