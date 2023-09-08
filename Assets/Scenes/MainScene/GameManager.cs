@@ -51,10 +51,19 @@ namespace Sence1
         [SerializeField] private TextMeshProUGUI answerB;
         [SerializeField] private TextMeshProUGUI answerC;
         [SerializeField] private TextMeshProUGUI answerD;
+        [SerializeField] private TextMeshProUGUI score;
+        [SerializeField] private TextMeshProUGUI remain;
         [SerializeField] private Image img_answerA;
         [SerializeField] private Image img_answerB;
         [SerializeField] private Image img_answerC;
         [SerializeField] private Image img_answerD;
+        [SerializeField] private Sprite Button_Green;
+        [SerializeField] private Sprite Button_Yellow;
+        [SerializeField] private Sprite Button_Black;
+        [SerializeField] private AudioSource audio_source;
+        [SerializeField] private AudioClip Main_theme;
+        [SerializeField] private AudioClip Wrong_Theme;
+        [SerializeField] private AudioClip Right_Theme;
 
         [SerializeField] private GameObject home_panel, game_play_panel, game_over_panel;
 
@@ -69,10 +78,10 @@ namespace Sence1
         private GameState game_state;
         private int question_index;
         private int live;
+        private int score_count;
         // Start is called before the first frame update
         void Start()
         {
-            
             StartCoroutine(GetQuestions("http://localhost:3000/getAll"));
         }
 
@@ -120,16 +129,6 @@ namespace Sence1
             
             yield return new WaitForSecondsRealtime(0.5f);
             img_answerA.color = Color.white;
-            if (traloiDung)
-            {
-                if (question_index >= question_data.Count - 1)
-                {
-                    Debug.Log("Xin chuc mung, ban da hoan thanh tat ca cac cau hoi");
-                    Set_game_state(GameState.GameOver);
-                }
-                question_index++;
-                InitQuestion(question_index);
-            }
         }
 
         public void OnPress(string select_answer)
@@ -138,39 +137,56 @@ namespace Sence1
             if (question_data[question_index].correctAnswer == select_answer)
             {
                 traloiDung = true;
+                audio_source.PlayOneShot(Right_Theme);
+                score_count++;
+                score.text = $"Score : {score_count}";
                 Debug.Log("Ban da tra loi chinh xac");
             }
             else
             {
                 traloiDung = false;
+                audio_source.PlayOneShot(Wrong_Theme);
                 live--;
+                remain.text = $"Remain : {live}";
                 Debug.Log("Ban da tra loi sai");
             }
 
             if (live == 0)
             {
                 Set_game_state(GameState.GameOver);
+                audio_source.Stop();
             }
 
             switch (select_answer)
             {
                 case "A":
-                    img_answerA.color = traloiDung ? Color.green : Color.red;
-                    StartCoroutine(ExampleCoroutine(traloiDung));
+                    img_answerA.sprite = traloiDung ? Button_Green : Button_Yellow;
                     break;
                 case "B":
-                    img_answerB.color = traloiDung ? Color.green : Color.red;
-                    StartCoroutine(ExampleCoroutine(traloiDung));
+                    img_answerB.sprite = traloiDung ? Button_Green : Button_Yellow;
                     break;
                 case "C":
-                    img_answerC.color = traloiDung ? Color.green : Color.red;
-                    StartCoroutine(ExampleCoroutine(traloiDung));
+                    img_answerC.sprite = traloiDung ? Button_Green : Button_Yellow;
                     break;
                 case "D":
-                    img_answerD.color = traloiDung ? Color.green : Color.red;
-                    StartCoroutine(ExampleCoroutine(traloiDung));
+                    img_answerD.sprite = traloiDung ? Button_Green : Button_Yellow;
                     break;
             }
+            if (traloiDung)
+            {
+                if (question_index >= question_data.Count - 1)
+                {
+                    Debug.Log("Xin chuc mung, ban da hoan thanh tat ca cac cau hoi");
+                    Set_game_state(GameState.GameOver);
+                }
+                Invoke(nameof(NextQuestion), 4);
+            }
+        }
+
+        private void NextQuestion()
+        {
+            question_index++;
+            InitQuestion(question_index);
         }
 
         private void InitQuestion(int index)
@@ -184,10 +200,10 @@ namespace Sence1
             answerB.text = question_data[index].answerB;
             answerC.text = question_data[index].answerC;
             answerD.text = question_data[index].answerD;
-            img_answerA.color = Color.white;
-            img_answerB.color = Color.white;
-            img_answerC.color = Color.white;
-            img_answerD.color = Color.white;
+            img_answerA.sprite = Button_Black;
+            img_answerB.sprite = Button_Black;
+            img_answerC.sprite = Button_Black;
+            img_answerD.sprite = Button_Black;
         }
 
         public void Set_game_state(GameState state)
@@ -201,9 +217,14 @@ namespace Sence1
         public void BtnPlay_Pressed()
         {
             Set_game_state(GameState.GamePlay);
-            live = 50;
+            live = 5;
             question_index = 0;
+            score_count = 0;
+            remain.text = $"Remain : {live}";
+            score.text = $"Score : {score_count}";
             InitQuestion(question_index);
+            audio_source.clip = Main_theme;
+            audio_source.Play();
         }
 
         public void BtnHome_Presses()
